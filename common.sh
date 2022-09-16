@@ -58,14 +58,6 @@ function execute_sudo() {
 	fi
 }
 
-function configure_reflector() {
-	if [ "$REFLECTOR" == "false" ]; then
-		if systemctl is-active --quiet reflector.service; then
-			systemctl stop reflector.service
-		fi
-	fi
-}
-
 function configure_network() {
 	if [ -n "$WIFI_INTERFACE" ]; then
 		iwctl --passphrase "$WIFI_KEY" station "$WIFI_INTERFACE" connect "$WIFI_ESSID"
