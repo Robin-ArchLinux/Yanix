@@ -6,6 +6,9 @@
 # -u参数表示shell脚本执行时如果遇到不存在的变量会报错并停止执行
 set -eu
 
+YANIX_HTTPS_ADDRESS="https://github.com/Robin-ArchLinux/Yanix.git"
+TMP_DIR="${HOME}/tmp"
+
 function pac_install() {
 	local ERROR="true"
 	set +e
@@ -49,7 +52,11 @@ function install() {
 
 function config_system() {
 	pac_install git
-	git clone 
+	
+	[ ! -d "$TMP_DIR" ] && mkdir "$TMP_DIR"
+	git clone $YANIX_HTTPS_ADDRESS "${TMP_DIR}/Yanix"
+	cd "${TMP_DIR}/Yanix"
+
 }
 
 function main() {

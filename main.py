@@ -1,3 +1,4 @@
+import sys
 import subprocess
 import common_cmd
 from loguru import logger
@@ -16,12 +17,24 @@ def test_cmd(args):
     print(cp.stdout.decode("UTF8"))
 
 
-def main():
+def install_system():
     Argos.configure(IS_DEBUG)
     common_cmd.set_keyboard_layout("us")
     common_cmd.set_time_zone("Asia/Shanghai")
     home_file_list = common_cmd.list_dir("/home/robin")
+
+
+def config_system():
     pass
 
 
-main()
+def main(argv: str):
+    match argv:
+        case 'install':
+            install_system()
+        case 'config':
+            config_system()
+
+
+if __name__ == '__main__':
+    main(sys.argv[1])

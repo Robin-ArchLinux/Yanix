@@ -15,20 +15,26 @@ class Argos:
             }
             logger.configure(**config)
 
+    @staticmethod
     def trace(msg):
         logger.opt(depth=1).trace(msg)
 
+    @staticmethod
     def w(msg):
         logger.opt(depth=1).warning(msg)
 
+    @staticmethod
     def i(msg):
         logger.opt(depth=1).info(msg)
 
+    @staticmethod
     def s(msg):
         logger.opt(depth=1).success(msg)
 
+    @staticmethod
     def d(msg):
         logger.opt(depth=1).debug(msg)
 
+    @staticmethod
     def e(msg):
         logger.opt(depth=1).error(msg)
