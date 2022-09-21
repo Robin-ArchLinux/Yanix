@@ -9,6 +9,7 @@ from argos import Argos
 def run_cmd(cmd) -> Result[str, str]:
     Argos.i(cmd)
     res = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    Argos.d(f"command return code: {res.returncode}")
     if res.returncode == 0:
         return Ok(res.stdout.read().decode("UTF-8").strip())
     else:
@@ -22,7 +23,7 @@ def pac_install(package):
         case Ok(_):
             Argos.s(f"package: {package} install success.")
         case Err(e):
-            Argos.e(f"install package failed, error: {e}")
+            Argos.e(f"install package failed, error:\n{e}")
 
 
 def list_dir(directory) -> List:
