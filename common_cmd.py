@@ -2,11 +2,12 @@ import subprocess
 import sys
 from typing import List
 from result import Result, Ok, Err
+from constant import ROOT_DIR
 
 from argos import Argos
 
 
-def run_cmd(cmd, pipe=False) -> Result[str, str]:
+def run_cmd(cmd, pipe=False, cwd=None) -> Result[str, str]:
     Argos.d(f"➜  {cmd}")
     # p_open = subprocess.Popen(cmd, text=True,encoding="UTF-8", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     # stdout, stderr = p_open.communicate("Y\n")
@@ -17,14 +18,14 @@ def run_cmd(cmd, pipe=False) -> Result[str, str]:
 
     if pipe:
         res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                             encoding="utf8")
+                             encoding="utf8", cwd=cwd)
         if res.returncode == 0:
             return Ok(res.stdout.strip())
         else:
             return Err(res.stderr.strip())
     else:
         res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=subprocess.PIPE,
-                             encoding="utf8")
+                             encoding="utf8", cwd=cwd)
         if res.returncode == 0:
             return Ok()
         else:
@@ -81,8 +82,8 @@ def install_paru():
         case Err(_):
             pac_install("base-devel")
             run_cmd("git clone https://aur.archlinux.org/paru.git")
-            cmd = "cd paru && makepkg -si"
-            result = run_cmd(cmd)
+            cmd = "makepkg -si"
+            result = run_cmd(cmd, cwd=f"{ROOT_DIR}/paru")
             match result:
                 case Ok(_):
                     Argos.s(f"install paru success")
