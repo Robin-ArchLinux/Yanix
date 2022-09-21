@@ -75,13 +75,14 @@ def set_time_zone(zone):
 
 
 def install_paru():
-    is_paru_installed = run_cmd("paru -h")
+    is_paru_installed = run_cmd("paru -h", pipe=True)
     match is_paru_installed:
         case Ok(_):
             Argos.s("paru has already installed")
         case Err(_):
             pac_install("base-devel")
             run_cmd("git clone https://aur.archlinux.org/paru.git")
+            pac_install("rust")
             cmd = "makepkg -si"
             result = run_cmd(cmd, cwd=f"{ROOT_DIR}/paru")
             match result:
