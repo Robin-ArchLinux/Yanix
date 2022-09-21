@@ -1,5 +1,9 @@
 import common_cmd
 
+def install_basic_libs():
+    # editor:
+    common_cmd.aur_install("vim emacs code-git")
+    #
 
 def install_fonts():
     common_cmd.pac_install("noto-fonts noto-fonts-cjk  noto-fonts-emoji")

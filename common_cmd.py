@@ -80,7 +80,8 @@ def install_paru():
             Argos.s("paru has already installed")
         case Err(_):
             pac_install("base-devel")
-            cmd = "git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si"
+            run_cmd("git clone https://aur.archlinux.org/paru.git")
+            cmd = "cd paru && makepkg -si"
             result = run_cmd(cmd)
             match result:
                 case Ok(_):
