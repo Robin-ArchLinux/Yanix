@@ -8,11 +8,11 @@ from argos import Argos
 
 def run_cmd(cmd) -> Result[str, str]:
     Argos.i(cmd)
-    res = subprocess.run(cmd, shell=True, capture_output=True, stdin=subprocess.PIPE)
+    res = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if res.returncode == 0:
-        return Ok(res.stdout.decode("UTF-8").strip())
+        return Ok(res.stdout.read().decode("UTF-8").strip())
     else:
-        return Err(res.stderr.decode("UTF-8").strip())
+        return Err(res.stderr.read().decode("UTF-8").strip())
 
 
 def pac_install(package):
