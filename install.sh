@@ -53,19 +53,14 @@ function install() {
 function start_python_script() {
   [ ! -d "$TMP_DIR" ] && mkdir "$TMP_DIR"
   local yanix_dir="${TMP_DIR}/Yanix"
-  [ -d  "$yanix_dir" ] && rm -rf "$yanix_dir"
+  [ -d "$yanix_dir" ] && rm -rf "$yanix_dir"
   git clone $YANIX_HTTPS_ADDRESS "${TMP_DIR}/Yanix"
   cd "${TMP_DIR}/Yanix"
   python3 -m venv env
   source "env/bin/activate"
   python3 -m pip install -r requirements.txt
-  python3 main.py --config
+  python3 main.py "$1"
   deactivate
-}
-
-function config_system() {
-  pac_install git
-  start_python_script
 }
 
 function main() {
@@ -78,10 +73,14 @@ function main() {
       exit 0
       ;;
 
-    --install) ;;
+    --install)
+      pac_install git
+      start_python_script --install
+      ;;
 
     --config)
-      config_system
+      pac_install git
+      start_python_script --config
       ;;
 
     esac
