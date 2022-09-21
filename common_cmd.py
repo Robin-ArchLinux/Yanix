@@ -8,9 +8,10 @@ from argos import Argos
 
 def run_cmd(cmd) -> Result[str, str]:
     Argos.i(cmd)
-    res = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    Argos.d(f"command return code: {res.returncode}")
-    if res.returncode == 0:
+    p_open = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    return_code = p_open.wait()
+    Argos.d(f"command return code: {return_code}")
+    if return_code == 0:
         return Ok(res.stdout.read().decode("UTF-8").strip())
     else:
         return Err(res.stderr.read().decode("UTF-8").strip())
