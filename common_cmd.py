@@ -8,20 +8,18 @@ from argos import Argos
 
 def run_cmd(cmd) -> Result[str, str]:
     Argos.i(cmd)
-    p_open = subprocess.Popen(cmd, text=True,encoding="UTF-8", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = p_open.communicate()
-    # Argos.d(f"stdout: {stdout}, stderr: {stderr}")
-    if stdout is None:
-        return Err(stderr.strip())
-    else:
-        return Ok(stdout.strip())
-
-
-    # Argos.d(f"command return code: {return_code}")
-    # if return_code == 0:
-    #     return Ok(stdout.decode("UTF-8").strip())
+    # p_open = subprocess.Popen(cmd, text=True,encoding="UTF-8", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    # stdout, stderr = p_open.communicate()
+    # if stdout is None:
+    #     return Err(stderr.strip())
     # else:
-    #     return Err(stderr.decode("UTF-8").strip())
+    #     return Ok(stdout.strip())
+
+    res = subprocess.run(cmd, shell=True, text=True, capture_output=True, stdin=subprocess.PIPE, input="Y\n")
+    if res.returncode == 0:
+        return Ok(res.stdout.strip())
+    else:
+        return Err(res.stderr.strip())
 
 
 def pac_install(package):
