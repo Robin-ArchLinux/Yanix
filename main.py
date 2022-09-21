@@ -1,7 +1,6 @@
 import sys
 import subprocess
 import common_cmd
-from loguru import logger
 from argos import Argos
 from constant import IS_DEBUG
 

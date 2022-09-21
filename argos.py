@@ -1,9 +1,11 @@
-from xmlrpc.client import Boolean
 import sys
+from xmlrpc.client import Boolean
+import os
 from loguru import logger
 
 
 class Argos:
+    @staticmethod
     def configure(is_debug: Boolean = False):
         if not is_debug:
             config = {
@@ -38,3 +40,4 @@ class Argos:
     @staticmethod
     def e(msg):
         logger.opt(depth=1).error(msg)
+        sys.exit(msg)

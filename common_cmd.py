@@ -1,6 +1,5 @@
-import shlex
-import logging
 import subprocess
+import sys
 from typing import List
 from result import Result, Ok, Err
 
@@ -32,7 +31,7 @@ def set_keyboard_layout(layout):
     cmd = f"loadkeys {layout}"
     result = run_cmd(cmd)
     match result:
-        case Ok(value):
+        case Ok(_):
             Argos.s(f"set keyboard layout to `{layout}`")
         case Err(e):
             Argos.e(f"set keyboard layout failed: {e}")
@@ -42,7 +41,9 @@ def set_time_zone(zone):
     cmd = f"timedatectl set-timezone {zone}"
     result = run_cmd(cmd)
     match result:
-        case Ok(value):
+        case Ok(_):
             Argos.s(f"set time zone to `{zone}`")
         case Err(e):
             Argos.e(f"set time zone failed: {e}")
+
+
