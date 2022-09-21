@@ -40,4 +40,4 @@ class Argos:
     @staticmethod
     def e(msg):
         logger.opt(depth=1).error(msg)
-        sys.exit(msg)
+        sys.exit(1)
