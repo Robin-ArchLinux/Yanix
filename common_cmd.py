@@ -15,7 +15,7 @@ def run_cmd(cmd) -> Result[str, str]:
     # else:
     #     return Ok(stdout.strip())
 
-    res = subprocess.run(cmd, shell=True, text=True, capture_output=True, stdin=subprocess.PIPE, input="Y\n")
+    res = subprocess.run(cmd, shell=True, text=True, capture_output=True, stdin=subprocess.PIPE)
     if res.returncode == 0:
         return Ok(res.stdout.strip())
     else:
