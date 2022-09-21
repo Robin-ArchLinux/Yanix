@@ -10,7 +10,7 @@ def run_cmd(cmd) -> Result[str, str]:
     Argos.i(cmd)
     p_open = subprocess.Popen(cmd, text=True,encoding="UTF-8", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     stdout, stderr = p_open.communicate()
-    Argos.d(f"stdout: {stdout}, stderr: {stderr}")
+    # Argos.d(f"stdout: {stdout}, stderr: {stderr}")
     if stdout is None:
         return Err(stderr.strip())
     else:
