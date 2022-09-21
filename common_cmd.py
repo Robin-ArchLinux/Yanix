@@ -22,7 +22,7 @@ def pac_install(package):
         case Ok(_):
             Argos.s(f"package: {package} install success.")
         case Err(e):
-            Argos.e(e)
+            Argos.e(f"install package failed, error: {e}")
 
 
 def list_dir(directory) -> List:
