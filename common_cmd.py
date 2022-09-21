@@ -6,7 +6,7 @@ from result import Result, Ok, Err
 from argos import Argos
 
 
-def run_cmd(cmd) -> Result[str, str]:
+def run_cmd(cmd, pipe=False) -> Result[str, str]:
     Argos.d(cmd)
     # p_open = subprocess.Popen(cmd, text=True,encoding="UTF-8", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
     # stdout, stderr = p_open.communicate("Y\n")
@@ -15,11 +15,20 @@ def run_cmd(cmd) -> Result[str, str]:
     # else:
     #     return Ok(stdout.strip())
 
-    res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=subprocess.PIPE, encoding="utf8")
-    if res.returncode == 0:
-        return Ok("")
+    if pipe:
+        res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                             encoding="utf8")
+        if res.returncode == 0:
+            return Ok(res.stdout.strip())
+        else:
+            return Err(res.stderr.strip())
     else:
-        return Err(res.stderr.strip())
+        res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=subprocess.PIPE,
+                             encoding="utf8")
+        if res.returncode == 0:
+            return Ok()
+        else:
+            return Err(res.stderr.strip())
 
 
 def pac_install(package):
@@ -34,7 +43,7 @@ def pac_install(package):
 
 def list_dir(directory) -> List:
     cmd = f"ls {directory}"
-    result = run_cmd(cmd)
+    result = run_cmd(cmd, True)
     match result:
         case Ok(value):
             file_list = value.split("\n")
