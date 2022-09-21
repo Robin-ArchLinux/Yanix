@@ -12,9 +12,9 @@ def run_cmd(cmd) -> Result[str, str]:
     return_code = p_open.wait()
     Argos.d(f"command return code: {return_code}")
     if return_code == 0:
-        return Ok(res.stdout.read().decode("UTF-8").strip())
+        return Ok(p_open.stdout.read().decode("UTF-8").strip())
     else:
-        return Err(res.stderr.read().decode("UTF-8").strip())
+        return Err(p_open.stderr.read().decode("UTF-8").strip())
 
 
 def pac_install(package):
