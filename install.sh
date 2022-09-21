@@ -59,7 +59,7 @@ function start_python_script() {
   python3 -m venv env
   source "env/bin/activate"
   python3 -m pip install -r requirements.txt
-  python3 main.py install
+  python3 main.py --config
   deactivate
 }
 
@@ -78,9 +78,9 @@ function main() {
       exit 0
       ;;
 
-    install) ;;
+    --install) ;;
 
-    config)
+    --config)
       config_system
       ;;
 

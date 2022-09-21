@@ -15,6 +15,16 @@ def run_cmd(cmd) -> Result[str, str]:
         return Err(res.stderr.decode("UTF-8").strip())
 
 
+def pac_install(package):
+    cmd = f"sudo pacman -Syu --needed {package}"
+    result = run_cmd(cmd)
+    match result:
+        case Ok(_):
+            Argos.s(f"package: {package} install success.")
+        case Err(e):
+            Argos.e(e)
+
+
 def list_dir(directory) -> List:
     cmd = f"ls {directory}"
     result = run_cmd(cmd)
@@ -47,3 +57,27 @@ def set_time_zone(zone):
             Argos.e(f"set time zone failed: {e}")
 
 
+def install_paru():
+    is_paru_installed = run_cmd("paru -h")
+    match is_paru_installed:
+        case Ok(_):
+            Argos.s("paru has already installed")
+        case Err(_):
+            pac_install("base-devel")
+            cmd = "git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si"
+            result = run_cmd(cmd)
+            match result:
+                case Ok(_):
+                    Argos.s(f"install paru success")
+                case Err(e):
+                    Argos.e(f"install paru failed")
+
+
+def aur_install(package):
+    cmd = f"paru -Syu --needed {package}"
+    result = run_cmd(cmd)
+    match result:
+        case Ok(_):
+            Argos.s(f"package: {package} install success.")
+        case Err(e):
+            Argos.e(e)
