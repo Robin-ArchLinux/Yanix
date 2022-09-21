@@ -15,11 +15,11 @@ def run_cmd(cmd) -> Result[str, str]:
     # else:
     #     return Ok(stdout.strip())
 
-    res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=None)
+    res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=subprocess.PIPE, encoding="utf8")
     if res.returncode == 0:
         return Ok("")
     else:
-        return Err("")
+        return Err(res.stderr.strip())
 
 
 def pac_install(package):
