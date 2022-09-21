@@ -9,12 +9,19 @@ from argos import Argos
 def run_cmd(cmd) -> Result[str, str]:
     Argos.i(cmd)
     p_open = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return_code = p_open.wait()
-    Argos.d(f"command return code: {return_code}")
-    if return_code == 0:
-        return Ok(p_open.stdout.read().decode("UTF-8").strip())
+    stdout, stderr = p_open.communicate()
+    Argos.d(f"stdout: {stdout}, stderr: {stderr}")
+    if stdout is None:
+        return Err(stderr.decode("UTF-8").strip())
     else:
-        return Err(p_open.stderr.read().decode("UTF-8").strip())
+        return Ok(stdout.decode("UTF-8").strip())
+
+
+    # Argos.d(f"command return code: {return_code}")
+    # if return_code == 0:
+    #     return Ok(stdout.decode("UTF-8").strip())
+    # else:
+    #     return Err(stderr.decode("UTF-8").strip())
 
 
 def pac_install(package):
