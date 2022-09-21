@@ -8,7 +8,7 @@ from argos import Argos
 
 def run_cmd(cmd) -> Result[str, str]:
     Argos.i(cmd)
-    res = subprocess.run(cmd, shell=True, capture_output=True)
+    res = subprocess.run(cmd, shell=True, capture_output=True, stdin=subprocess.PIPE)
     if res.returncode == 0:
         return Ok(res.stdout.decode("UTF-8").strip())
     else:
