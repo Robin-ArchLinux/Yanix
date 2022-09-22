@@ -9,7 +9,8 @@ import tty
 import pty
 from subprocess import Popen
 
-command = 'cd paru && makepkg -si'
+cwd = os.path.dirname(os.path.abspath(__file__)) + "/paru"
+command = 'makepkg -si'
 # command = 'docker run -it --rm centos /bin/bash'.split()
 
 
@@ -20,7 +21,6 @@ tty.setraw(sys.stdin.fileno())
 # open pseudo-terminal to interact with subprocess
 master_fd, slave_fd = pty.openpty()
 
-
 try:
     # use os.setsid() make it run in a new process group, or bash job control will not be enabled
     p = Popen(command,
@@ -28,7 +28,7 @@ try:
               stdin=slave_fd,
               stdout=slave_fd,
               stderr=slave_fd,
-              universal_newlines=True)
+              universal_newlines=True, cwd=cwd)
 
     while p.poll() is None:
         r, w, e = select.select([sys.stdin, master_fd], [], [])
