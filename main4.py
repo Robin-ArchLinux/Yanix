@@ -10,7 +10,7 @@ import pty
 from subprocess import Popen
 
 cwd = os.path.dirname(os.path.abspath(__file__)) + "/paru"
-command = 'makepkg -si'
+command = 'makepkg -si'.split()
 # command = 'docker run -it --rm centos /bin/bash'.split()
 
 
