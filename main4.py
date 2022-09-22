@@ -9,8 +9,9 @@ import tty
 import pty
 from subprocess import Popen
 
-command = 'bash'
+command = 'cd paru && makepkg -si'
 # command = 'docker run -it --rm centos /bin/bash'.split()
+
 
 # save original tty setting then set it to raw mode
 old_tty = termios.tcgetattr(sys.stdin)
