@@ -15,7 +15,7 @@ cmd = 'makepkg -si'.split()
 
 # command = 'docker run -it --rm centos /bin/bash'.split()
 
-def run_cmd(command, cwd):
+def run_cmd_with_interactive(command, cwd):
     # save original tty setting then set it to raw mode
     old_tty = termios.tcgetattr(sys.stdin)
     tty.setraw(sys.stdin.fileno())
@@ -48,4 +48,4 @@ def run_cmd(command, cwd):
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_tty)
 
 
-run_cmd(cmd, path)
+run_cmd_with_interactive(cmd, path)
