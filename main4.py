@@ -48,4 +48,4 @@ def run_cmd_with_interactive(command, cwd):
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_tty)
 
 
-run_cmd_with_interactive(cmd, path)
+run_cmd_with_interactive(cmd)
