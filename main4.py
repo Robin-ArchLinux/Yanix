@@ -11,7 +11,7 @@ from subprocess import Popen
 
 path = os.path.dirname(os.path.abspath(__file__)) + "/paru"
 # command = "bash"
-cmd = 'makepkg -si'.split()
+cmd = 'sudo pacman -Syu --needed code'.split()
 
 # command = 'docker run -it --rm centos /bin/bash'.split()
 
