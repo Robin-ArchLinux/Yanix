@@ -30,6 +30,7 @@ def run_cmd(cmd, pipe=False, cwd=None) -> Result[str, str]:
             return Err(res.stderr.strip())
     else:
         res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=None, cwd=cwd)
+        Argos.e(f"return code: {res.returncode}")
         if res.returncode == 0:
             return Ok()
         else:
