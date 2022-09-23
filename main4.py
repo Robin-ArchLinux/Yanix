@@ -15,7 +15,7 @@ cmd = 'sudo pacman -Syu --needed code'.split()
 
 # command = 'docker run -it --rm centos /bin/bash'.split()
 
-def run_cmd_with_interactive(command, cwd):
+def run_cmd_with_interactive(command, cwd=None):
     # save original tty setting then set it to raw mode
     old_tty = termios.tcgetattr(sys.stdin)
     tty.setraw(sys.stdin.fileno())
