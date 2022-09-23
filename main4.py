@@ -10,6 +10,7 @@ import pty
 from subprocess import Popen
 
 cwd = os.path.dirname(os.path.abspath(__file__)) + "/paru"
+# command = "bash"
 command = 'makepkg -si'.split()
 # command = 'docker run -it --rm centos /bin/bash'.split()
 
@@ -34,10 +35,12 @@ try:
         r, w, e = select.select([sys.stdin, master_fd], [], [])
         if sys.stdin in r:
             d = os.read(sys.stdin.fileno(), 10240)
+            print(f"from sys.stdin, {d}")
             os.write(master_fd, d)
         elif master_fd in r:
             o = os.read(master_fd, 10240)
             if o:
+                print(f"from master_fd, {o}")
                 os.write(sys.stdout.fileno(), o)
 finally:
     # restore tty settings back
