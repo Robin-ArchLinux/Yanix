@@ -1,1 +1,5 @@
 * My Custom ArchLinux Config Script.
+
+** 下载script文件并运行
+
+curl https://example.com/script.sh | sh -s -- --my-arg
