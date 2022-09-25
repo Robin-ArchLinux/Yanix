@@ -14,6 +14,7 @@ def install_fcitx():
 
 def run():
     common_cmd.install_paru()
+    common_cmd.pac_install("gimp")
     install_fonts()
     install_fcitx()
     pass
