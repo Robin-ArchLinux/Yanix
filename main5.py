@@ -8,5 +8,5 @@ from constant import ROOT_DIR
 
 cmd = "makepkg -si"
 cmd = shlex.split(cmd)
-cwd = f"${ROOT_DIR}/paru"
+cwd = f"{ROOT_DIR}/paru"
 res = subprocess.run(cmd, text=True, stdin=None, stdout=None, stderr=None, cwd=cwd)
