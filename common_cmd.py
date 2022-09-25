@@ -42,7 +42,7 @@ def run_cmd_with_interactive(command, cwd=None):
     master_fd, slave_fd = pty.openpty()
 
     # use os.setsid() make it run in a new process group, or bash job control will not be enabled
-    p = subprocess.Popen(command,
+    p = subprocess.Popen(command.split(),
                          preexec_fn=os.setsid,
                          stdin=slave_fd,
                          stdout=slave_fd,
