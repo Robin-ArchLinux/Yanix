@@ -63,13 +63,12 @@ def run_cmd_with_interactive(command, cwd=None):
 
 def pac_install(package):
     cmd = f"sudo pacman -Syu --needed {package}"
-    run_cmd_with_interactive(cmd)
-    # result = run_cmd(cmd)
-    # match result:
-    #     case Ok(_):
-    #         Argos.s(f"package: {package} install success.")
-    #     case Err(e):
-    #         Argos.e(f"install package failed, error:\n{e}")
+    result = run_cmd(cmd)
+    match result:
+        case Ok(_):
+            Argos.s(f"package: {package} install success.")
+        case Err(e):
+            Argos.e(f"install package failed, error:\n{e}")
 
 
 def list_dir(directory) -> List:

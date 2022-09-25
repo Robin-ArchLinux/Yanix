@@ -13,9 +13,8 @@ def install_fcitx():
     common_cmd.aur_install("fcitx-sogoupinyin")
 
 def run():
-    common_cmd.pac_install("gimp")
-    # common_cmd.install_paru()
-    # install_fonts()
-    # install_fcitx()
+    common_cmd.install_paru()
+    install_fonts()
+    install_fcitx()
     pass
 
