@@ -38,6 +38,7 @@ def run_cmd(cmd, pipe=False, cwd=None) -> Result[str, str]:
 
 
 def run_cmd_with_interactive(command, cwd=None):
+    Argos.d("run_cmd_with_interactive")
     # open pseudo-terminal to interact with subprocess
     master_fd, slave_fd = pty.openpty()
 
