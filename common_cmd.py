@@ -21,20 +21,27 @@ def run_cmd(cmd, pipe=False, cwd=None) -> Result[str, str]:
     # else:
     #     return Ok(stdout.strip())
 
-    if pipe:
-        res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                             encoding="utf8", cwd=cwd)
-        if res.returncode == 0:
-            return Ok(res.stdout.strip())
-        else:
-            return Err(res.stderr.strip())
+    # if pipe:
+    #     res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+    #                          encoding="utf8", cwd=cwd)
+    #     if res.returncode == 0:
+    #         return Ok(res.stdout.strip())
+    #     else:
+    #         return Err(res.stderr.strip())
+    # else:
+    #     res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=None, cwd=cwd)
+    #     Argos.e(f"return code: {res.returncode}")
+    #     if res.returncode == 0:
+    #         return Ok()
+    #     else:
+    #         return Err(res.stderr.strip())
+
+    res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=None, cwd=cwd)
+    Argos.e(f"return code: {res.returncode}")
+    if res.returncode == 0:
+        return Ok()
     else:
-        res = subprocess.run(cmd, shell=True, text=True, stdin=None, stdout=None, stderr=None, cwd=cwd)
-        Argos.e(f"return code: {res.returncode}")
-        if res.returncode == 0:
-            return Ok()
-        else:
-            return Err(res.stderr.strip())
+        return Err(res.stderr.strip())
 
 
 def run_cmd_with_interactive(command, cwd=None):
