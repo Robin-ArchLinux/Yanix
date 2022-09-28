@@ -4,14 +4,15 @@ set -eu
 source base_script.sh
 
 function install_paru() {
-  logi "install paru"
-  if has_installed "paru"==true; then
+  logi "begin install paru"
+  if has_installed "paru"; then
     logi "paru has installed"
+  else
+    pkg_install "base-devel"
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
   fi
-  pkg_install "base-devel"
-  git clone https://aur.archlinux.org/paru.git
-  cd paru
-  makepkg -si
 }
 
 function install_common_software() {
@@ -50,6 +51,6 @@ function config_printers() {
 function config_system() {
   logi "begin config system"
   install_paru
-  install_common_software
-  install_fonts
+    install_common_software
+    install_fonts
 }

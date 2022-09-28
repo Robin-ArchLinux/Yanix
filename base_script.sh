@@ -30,7 +30,7 @@ function step() {
 }
 
 function pkg_install() {
-  if "$(has_installed "$1")"==true; then
+  if has_installed "$1"; then
     logi "The package $1 is already installed"
   else
     logi "➜  pacman -S --noconfirm --needed $1"
@@ -39,14 +39,18 @@ function pkg_install() {
 }
 
 function has_installed() {
-  pacman -Qi "$1" &>/dev/null
+  if pacman -Qi "$1" &>/dev/null; then
+    true
+  else
+    false
+  fi
 }
 
 function pkg_list_install() {
   local list=$1
   logi $list
-#  for name in "${list[@]}"; do
-#    logi "Installing package $name"
-#    pkg_install "$name"
-#  done
+  #  for name in "${list[@]}"; do
+  #    logi "Installing package $name"
+  #    pkg_install "$name"
+  #  done
 }
