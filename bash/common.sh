@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 RED='\033[0;91m'
 GREEN='\033[0;92m'
 BLUE='\033[0;96m'
@@ -29,6 +30,9 @@ function step() {
 	local STEP="$1"
 	eval "$STEP"
 }
+=======
+source base_script.sh
+>>>>>>> d0b4e78 (重构目录结构)
 =======
 source base_script.sh
 >>>>>>> d0b4e78 (重构目录结构)

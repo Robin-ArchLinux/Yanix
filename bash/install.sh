@@ -28,15 +28,21 @@ function init_vars() {
 function configure_keymap() {
 	if [ "$IS_DEBUG" == "true" ]; then
 <<<<<<< HEAD
+<<<<<<< HEAD
 		info "in debug mode, skip config console keyboard map"
 	else
 		loadkeys "$KEYMAP"
 		info "set console keymap to ${KEYMAP}"
 =======
+=======
+>>>>>>> d0b4e78 (重构目录结构)
 		logi "in debug mode, skip config console keyboard map"
 	else
 		loadkeys "$KEYMAP"
 		logi "set console keymap to ${KEYMAP}"
+<<<<<<< HEAD
+>>>>>>> d0b4e78 (重构目录结构)
+=======
 >>>>>>> d0b4e78 (重构目录结构)
 	fi
 }
