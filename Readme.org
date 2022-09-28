@@ -3,3 +3,13 @@
 ** 下载script文件并运行
 
 curl https://raw.githubusercontent.com/Robin-ArchLinux/Yanix/main/download.sh | sh -s -- --config
+
+** 配置文件说明
+
+*** 配置系统流程
+1. 安装paru
+
+2. 安装字体
+
+3. 中文支持配置
+安装配置fcitx

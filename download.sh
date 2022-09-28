@@ -5,7 +5,7 @@ YANIX_HTTPS_ADDRESS="https://github.com/Robin-ArchLinux/Yanix.git"
 TMP_DIR="${HOME}/tmp"
 
 function clone_and_run() {
-  sudo pacman -S --noconfirm --needed
+  sudo pacman -S --noconfirm --needed git
 
   [ ! -d "$TMP_DIR" ] && mkdir "$TMP_DIR"
   local yanix_dir="${TMP_DIR}/Yanix"

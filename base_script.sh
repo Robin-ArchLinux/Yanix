@@ -7,33 +7,46 @@ WHITE='\033[0;97m'
 NC='\033[0m'
 
 function logi() {
-	local MSG="$1"
-	echo -e "${GREEN}${MSG}${NC}"
+  local MSG="$1"
+  echo -e "${GREEN}${MSG}${NC}"
 }
 
 function loge() {
-	local MSG="$1"
-	echo -e "${RED}error: ${MSG}${NC}"
-	exit 1
+  local MSG="$1"
+  echo -e "${RED}error: ${MSG}${NC}"
+  exit 1
 }
 
 function print_step() {
-	STEP="$1"
-	echo ""
-	echo -e "${BLUE}# ${STEP} step${NC}"
-	echo ""
+  STEP="$1"
+  echo ""
+  echo -e "${BLUE}# ${STEP} step${NC}"
+  echo ""
 }
 
 function step() {
-	local STEP="$1"
-	eval "$STEP"
+  local STEP="$1"
+  eval "$STEP"
 }
 
 function pkg_install() {
-  if pacman -Qi "$1" &>/dev/null; then
+  if "$(has_installed "$1")"==true; then
     logi "The package $1 is already installed"
   else
     logi "➜  pacman -S --noconfirm --needed $1"
     sudo pacman -S --noconfirm --needed "$1"
   fi
+}
+
+function has_installed() {
+  pacman -Qi "$1" &>/dev/null
+}
+
+function pkg_list_install() {
+  local list=$1
+  logi $list
+#  for name in "${list[@]}"; do
+#    logi "Installing package $name"
+#    pkg_install "$name"
+#  done
 }
