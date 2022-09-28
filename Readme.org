@@ -2,4 +2,4 @@
 
 ** 下载script文件并运行
 
-curl https://example.com/script.sh | sh -s -- --my-arg
+curl https://raw.githubusercontent.com/Robin-ArchLinux/Yanix/main/download.sh | sh -s -- --config
