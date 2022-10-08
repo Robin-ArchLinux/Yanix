@@ -54,3 +54,10 @@ function config_system() {
   install_common_pkg
   install_fonts
 }
+
+install_paru
+
+install_fonts
+
+sudo pacman -Syu
+sudo pacman -S xmonad xmonad-contrib picom dmenu drun xterm

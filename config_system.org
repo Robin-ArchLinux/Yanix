@@ -1,0 +1,146 @@
+* 配置系统
+
+** basic script
+   #+begin_src shell :tangle ./.Yanix/base_script.sh
+   #!/usr/bin/env bash
+
+   RED='\033[0;91m'
+   GREEN='\033[0;92m'
+   BLUE='\033[0;96m'
+   WHITE='\033[0;97m'
+   NC='\033[0m'
+
+   function logi() {
+     local MSG="$1"
+     echo -e "${GREEN}${MSG}${NC}"
+   }
+
+   function loge() {
+     local MSG="$1"
+     echo -e "${RED}error: ${MSG}${NC}"
+     exit 1
+   }
+
+   function print_step() {
+     STEP="$1"
+     echo ""
+     echo -e "${BLUE}# ${STEP} step${NC}"
+     echo ""
+   }
+
+   function step() {
+     local STEP="$1"
+     eval "$STEP"
+   }
+
+   function pkg_install() {
+     if has_installed "$1"; then
+       logi "The package $1 is already installed"
+     else
+       logi "➜  pacman -S --noconfirm --needed $1"
+       sudo pacman -S --noconfirm --needed "$1"
+     fi
+   }
+
+   function has_installed() {
+     if pacman -Qi "$1" &>/dev/null; then
+       true
+     else
+       false
+     fi
+   }
+
+   function pkg_list_install() {
+     local arr=("$@")
+     for pkg in "${arr[@]}"; do
+       pkg_install "$pkg"
+     done
+   }
+   #+end_src
+
+** Basic Function Define
+   #+begin_src shell :tangle ./.Yanix/config_system.sh
+   #!/usr/bin/env bash
+   set -eu
+
+   source base_script.sh
+
+   function install_paru() {
+     logi "begin install paru"
+     if has_installed "paru"; then
+       logi "paru has installed"
+     else
+       pkg_install "base-devel"
+       git clone https://aur.archlinux.org/paru.git
+       cd paru
+       makepkg -si
+     fi
+   }
+
+   function install_common_pkg() {
+     logi "install common software"
+     local list=(
+       firefox
+       sublime-text-4
+       meld
+       telegram-desktop
+       discord
+       scrot
+     )
+     pkg_list_install "${list[@]}"
+   }
+
+   function install_fonts() {
+     logi "install fonts"
+   }
+
+   function config_sound() {
+     logi "config sound"
+   }
+
+   function config_samba() {
+     logi "config samba"
+   }
+
+   function config_network_discovery() {
+     logi "config network discovery"
+   }
+
+   function config_printers() {
+     logi "config printers"
+   }
+
+   function config_system() {
+     logi "begin config system"
+     install_paru
+     install_common_pkg
+     install_fonts
+   }
+
+   #+end_src
+
+** Install Paru
+#+begin_src shell :tangle ./.Yanix/config_system.sh
+install_paru
+#+end_src
+   
+** 安装字体
+#+begin_src shell :tangle ./.Yanix/config_system.sh
+install_fonts
+#+end_src
+
+** xmonad配置
+
+** 中文配置
+
+** Xmonad Configuration
+#+begin_src shell :tangle ./.Yanix/config_system.sh
+sudo pacman -Syu
+# Picom — Compositor (a fork of Compton).
+sudo pacman -S xmonad xmonad-contrib xmobar picom dmenu drun xterm
+#+end_src
+
+** Emacs配置
+
+** Vim配置
+

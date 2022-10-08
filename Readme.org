@@ -13,3 +13,9 @@ curl https://raw.githubusercontent.com/Robin-ArchLinux/Yanix/main/download.sh | 
 
 3. 中文支持配置
 安装配置fcitx
+
+4. 配置xmonad
+需要安装的包:
+xmonad xmonad-contrib dmenu xterm alacritty feh
+
+5. 虚拟机软件安装
