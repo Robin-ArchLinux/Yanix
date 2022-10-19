@@ -55,9 +55,16 @@ function config_system() {
   install_fonts
 }
 
+echo "update system before do further operation."
+sudo pacman --noconfirm -Syu
+
+echo "install basic tooltip package"
+sudo pacman -S --noconfirm --needed base-devel wget git
+
 install_paru
 
 install_fonts
 
-sudo pacman -Syu
-sudo pacman -S xmonad xmonad-contrib picom dmenu drun xterm
+sudo pacman -S --noconfirm --needed rofi feh xmonad xmonad-contrib xmobar xterm alacritty
+
+mkdir -p ~/.config/xmonad && cd ~/.config/xmonad

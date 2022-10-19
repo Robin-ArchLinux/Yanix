@@ -1,7 +1,9 @@
-* 配置系统
+#+TITLE ArchLinux系统配置
+#+PROPERTY: header-args :tangle ./.Yanix/config_system.sh
+#+STARTUP: showeverything
 
-** basic script
-   #+begin_src shell :tangle ./.Yanix/base_script.sh
+* basic script
+#+begin_src shell :tangle ./.Yanix/base_script.sh
    #!/usr/bin/env bash
 
    RED='\033[0;91m'
@@ -58,89 +60,123 @@
    }
    #+end_src
 
-** Basic Function Define
-   #+begin_src shell :tangle ./.Yanix/config_system.sh
-   #!/usr/bin/env bash
-   set -eu
+* Basic Function Define
+#+begin_src shell :tangle ./.Yanix/config_system.sh
+#!/usr/bin/env bash
+set -eu
 
-   source base_script.sh
+source base_script.sh
 
-   function install_paru() {
-     logi "begin install paru"
-     if has_installed "paru"; then
-       logi "paru has installed"
-     else
-       pkg_install "base-devel"
-       git clone https://aur.archlinux.org/paru.git
-       cd paru
-       makepkg -si
-     fi
-   }
+function install_paru() {
+  logi "begin install paru"
+  if has_installed "paru"; then
+    logi "paru has installed"
+  else
+    pkg_install "base-devel"
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
+  fi
+}
 
-   function install_common_pkg() {
-     logi "install common software"
-     local list=(
-       firefox
-       sublime-text-4
-       meld
-       telegram-desktop
-       discord
-       scrot
-     )
-     pkg_list_install "${list[@]}"
-   }
+function install_common_pkg() {
+  logi "install common software"
+  local list=(
+    firefox
+    sublime-text-4
+    meld
+    telegram-desktop
+    discord
+    scrot
+  )
+  pkg_list_install "${list[@]}"
+}
 
-   function install_fonts() {
-     logi "install fonts"
-   }
+function install_fonts() {
+  logi "install fonts"
+}
 
-   function config_sound() {
-     logi "config sound"
-   }
+function config_sound() {
+  logi "config sound"
+}
 
-   function config_samba() {
-     logi "config samba"
-   }
+function config_samba() {
+  logi "config samba"
+}
 
-   function config_network_discovery() {
-     logi "config network discovery"
-   }
+function config_network_discovery() {
+  logi "config network discovery"
+}
 
-   function config_printers() {
-     logi "config printers"
-   }
+function config_printers() {
+  logi "config printers"
+}
 
-   function config_system() {
-     logi "begin config system"
-     install_paru
-     install_common_pkg
-     install_fonts
-   }
+function config_system() {
+  logi "begin config system"
+  install_paru
+  install_common_pkg
+  install_fonts
+}
+#+end_src
 
-   #+end_src
+* 更新系统包
+#+begin_src emacs-lisp
+echo "update system before do further operation."
+sudo pacman --noconfirm -Syu
+#+end_src
 
-** Install Paru
+* 安装基础工具包
+#+begin_src emacs-lisp
+echo "install basic tooltip package"
+sudo pacman -S --noconfirm --needed base-devel wget git
+#+end_src
+
+* Install Paru
 #+begin_src shell :tangle ./.Yanix/config_system.sh
 install_paru
 #+end_src
    
-** 安装字体
+* 安装字体
 #+begin_src shell :tangle ./.Yanix/config_system.sh
 install_fonts
 #+end_src
 
-** xmonad配置
+* Xmonad配置
+Xmonad官网: https://wiki.haskell.org/Xmonad
+A Quick Tour of Haskell Syntax:
+英文版本: http://prajitr.github.io/quick-haskell-syntax/
+中文版本: http://hyan23.org/2022/06/10/a-quick-tour-of-haskell-syntax/
+Good Haskell Style: http://urchin.earth.li/~ian/style/haskell.html
+Config File Template: http://code.haskell.org/xmonad/man/xmonad.hs
 
-** 中文配置
+** 登陆/显示管理器
+gdm or sddm, 目前在系统安装阶段会安装KDE,KDE的默认登录管理器是gdm
 
-** Xmonad Configuration
-#+begin_src shell :tangle ./.Yanix/config_system.sh
-sudo pacman -Syu
-# Picom — Compositor (a fork of Compton).
-sudo pacman -S xmonad xmonad-contrib xmobar picom dmenu drun xterm
+** 安装包
+| 包名      | 描述                                                          |
+|-----------+---------------------------------------------------------------|
+| rofi      | A window switcher, Application launcher and dmenu replacement |
+| feh       | Image Viewer                                                  |
+| Picom     | Compositor                                                    |
+| alacritty | A Terminal Emulator                                         |
+
+#+begin_src shell
+sudo pacman -S --noconfirm --needed rofi feh xmonad xmonad-contrib xmobar xterm alacritty
 #+end_src
 
-** Emacs配置
+** TODO 默认配置文件
+#+begin_src shell
+mkdir -p ~/.config/xmonad && cd ~/.config/xmonad
+#+end_src
 
-** Vim配置
+** TODO 字体配置
+** TODO Wallpapers
+
+** TODO Panel/StatusBar配置
+
+** TODO 工作区配置
+
+* TODO Emacs配置
+* TODO Vim配置
 
